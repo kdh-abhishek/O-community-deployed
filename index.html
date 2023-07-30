@@ -152,22 +152,24 @@
     
 
             <!--sign up-->
-            <div class="login-form">
-                <h2 id="id3">Create a new account</h2>
-                <div class="input-wrapper">
-                    <input type="text" placeholder="First name" style="width:
-                        130px;">
-                    <input type="text" placeholder="Last name" style="width:
-                        130px;">
+            <form action="" id="signup-form">
+                <div class="login-form">
+                    <h2 id="id3">Create a new account</h2>
+                    <div class="input-wrapper">
+                        <input type="text" placeholder="First name" id="signup-firstName" style="width:
+                            130px;">
+                        <input type="text" placeholder="Last name" id="signup-lastName" style="width:
+                            130px;">
+                    </div>
+                    <input type="text" placeholder="Email or Phone number" id="signup-email">
+                    <input type="password" placeholder=" Create Password" id="signup-password">
+                    <button class="create-account-button" type="submit">Registration</button>
+                    <br>
+                    <br>
+                    <a href="login.html" style="text-decoration: none; color: orange;">Already
+                        have an account ? </a>
                 </div>
-                <input type="text" placeholder="Email or Phone number">
-                <input type="password" placeholder=" Create Password">
-                <button class="create-account-button" type="submit">Registration</button>
-                <br>
-                <br>
-                <a href="login.html" style="text-decoration: none; color: orange;">Already
-                    have an account ? </a>
-            </div>
+            </form>
 
             <div class="header">
                 <h1 id="id2">O-Community</h1>
@@ -375,6 +377,51 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     });
+});
+// Signup
+     
+document.addEventListener("DOMContentLoaded", function() {
+  
+  function handleSignup(event) {
+event.preventDefault();
+
+var firstName = document.querySelector("#signup-firstName").value;
+var lastName = document.querySelector("#signup-lastName").value;
+var nameValue = firstName + " " + lastName;
+
+var emailValue = document.querySelector("#signup-email").value;
+var passwordValue = document.querySelector("#signup-password").value;
+
+var User = {
+  name: nameValue,
+  email: emailValue,
+  password: passwordValue
+};
+
+fetch("https://wil-backend-ocnh.vercel.app/api/user/signup", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(User)
+})
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Signup failed");
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log(data);
+    alert('Signup successful');
+  })
+  .catch(error => {
+    console.error("Error:", error);
+    alert("Signup failed!! Please try again later.");
+  });
+}
+var signupForm = document.querySelector("#signup-form");
+signupForm.addEventListener("submit", handleSignup);
 });
 // let campaignListData = []           // There is no excuse to return data for the time being. It is occupied here.
 document.addEventListener("DOMContentLoaded",(ev)=>{

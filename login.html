@@ -74,7 +74,7 @@
                         if(res.status===200) {
                             let users = JSON.parse(localStorage.getItem("users"))
                             localStorage.setItem("user",users.find(user => user.email === email)._id)
-                            alert("登录成功")
+                            alert("Greate to have you back!!")
                             // 跳转首页
                             location.href = "/"
                             return
